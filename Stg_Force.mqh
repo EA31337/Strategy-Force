@@ -50,7 +50,7 @@ struct Stg_Force_Params : StgParams {
 
   // Struct constructors.
   Stg_Force_Params(ForceParams &_iparams, StgParams &_sparams)
-      : iparams(indi_force_defaults, _iparams.tf), sparams(stg_force_defaults) {
+      : iparams(indi_force_defaults, _iparams.tf.GetTf()), sparams(stg_force_defaults) {
     iparams = _iparams;
     sparams = _sparams;
   }
