@@ -110,7 +110,7 @@ class Stg_Force : public Strategy {
       switch (_cmd) {
         case ORDER_TYPE_BUY:
           // FI recommends to buy (i.e. FI<0).
-          _result = _indi[CURR][0] < 0 && _indi.IsIncreasing(3);
+          _result = _indi[CURR][0] < 0 && _indi.IsIncreasing(2);
           _result &= _indi.IsIncByPct(_level, 0, 0, 2);
           _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
           // Signal: Changing from negative values to positive.
@@ -121,7 +121,7 @@ class Stg_Force : public Strategy {
           break;
         case ORDER_TYPE_SELL:
           // FI recommends to sell (i.e. FI>0).
-          _result = _indi[CURR][0] > 0 && _indi.IsDecreasing(3);
+          _result = _indi[CURR][0] > 0 && _indi.IsDecreasing(2);
           _result &= _indi.IsDecByPct(-_level, 0, 0, 2);
           _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
           // @todo
