@@ -8,7 +8,7 @@ INPUT string __Force_Parameters__ = "-- Force strategy params --";  // >>> FORCE
 INPUT float Force_LotSize = 0;                                      // Lot size
 INPUT int Force_SignalOpenMethod = 2;                               // Signal open method (-127-127)
 INPUT float Force_SignalOpenLevel = 0.0f;                           // Signal open level
-INPUT int Force_SignalOpenFilterMethod = 32;                         // Signal open filter method
+INPUT int Force_SignalOpenFilterMethod = 32;                        // Signal open filter method
 INPUT int Force_SignalOpenBoostMethod = 0;                          // Signal open boost method
 INPUT int Force_SignalCloseMethod = 2;                              // Signal close method (-127-127)
 INPUT float Force_SignalCloseLevel = 0.0f;                          // Signal close level
@@ -106,32 +106,29 @@ class Stg_Force : public Strategy {
     bool _is_valid = _indi[CURR].IsValid() && _indi[PREV].IsValid() && _indi[PPREV].IsValid();
     bool _result = _is_valid;
     if (_is_valid) {
+      IndicatorSignal _signals = _indi.GetSignals(4, _shift);
       switch (_cmd) {
         case ORDER_TYPE_BUY:
           // FI recommends to buy (i.e. FI<0).
           _result = _indi[CURR][0] < 0 && _indi.IsIncreasing(3);
           _result &= _indi.IsIncByPct(_level, 0, 0, 2);
+          _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
           // Signal: Changing from negative values to positive.
-          if (_result && _method != 0) {
-            if (METHOD(_method, 0)) _result &= _indi.IsIncreasing(2, 0, 3);
-            if (METHOD(_method, 1)) _result &= _indi.IsIncreasing(2, 0, 5);
-            // When histogram passes through zero level from bottom up,
-            // bears have lost control over the market and bulls increase pressure.
-            if (METHOD(_method, 2)) _result &= _indi[PPREV][0] > 0;
-          }
+          // @todo
+          // When histogram passes through zero level from bottom up,
+          // bears have lost control over the market and bulls increase pressure.
+          // if (METHOD(_method, 2)) _result &= _indi[PPREV][0] > 0;
           break;
         case ORDER_TYPE_SELL:
           // FI recommends to sell (i.e. FI>0).
           _result = _indi[CURR][0] > 0 && _indi.IsDecreasing(3);
           _result &= _indi.IsDecByPct(-_level, 0, 0, 2);
-          if (_result && _method != 0) {
-            // When histogram is below zero level, but with the rays pointing upwards (upward trend),
-            // then we can assume that, in spite of still bearish sentiment in the market, their strength begins to
-            // weaken.
-            if (METHOD(_method, 0)) _result &= _indi.IsDecreasing(2, 0, 3);
-            if (METHOD(_method, 1)) _result &= _indi.IsDecreasing(2, 0, 5);
-            if (METHOD(_method, 2)) _result &= _indi[PPREV][0] < 0;
-          }
+          _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
+          // @todo
+          // When histogram is below zero level, but with the rays pointing upwards (upward trend),
+          // then we can assume that, in spite of still bearish sentiment in the market, their strength begins to
+          // weaken.
+          // if (METHOD(_method, 2)) _result &= _indi[PPREV][0] < 0;
           break;
       }
     }
