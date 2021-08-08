@@ -103,34 +103,35 @@ class Stg_Force : public Strategy {
    */
   bool SignalOpen(ENUM_ORDER_TYPE _cmd, int _method = 0, float _level = 0.0f, int _shift = 0) {
     Indi_Force *_indi = GetIndicator();
-    bool _is_valid = _indi[CURR].IsValid() && _indi[PREV].IsValid() && _indi[PPREV].IsValid();
-    bool _result = _is_valid;
-    if (_is_valid) {
-      IndicatorSignal _signals = _indi.GetSignals(4, _shift);
-      switch (_cmd) {
-        case ORDER_TYPE_BUY:
-          // FI recommends to buy (i.e. FI<0).
-          _result = _indi[CURR][0] < 0 && _indi.IsIncreasing(2);
-          _result &= _indi.IsIncByPct(_level, 0, 0, 2);
-          _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
-          // Signal: Changing from negative values to positive.
-          // @todo
-          // When histogram passes through zero level from bottom up,
-          // bears have lost control over the market and bulls increase pressure.
-          // if (METHOD(_method, 2)) _result &= _indi[PPREV][0] > 0;
-          break;
-        case ORDER_TYPE_SELL:
-          // FI recommends to sell (i.e. FI>0).
-          _result = _indi[CURR][0] > 0 && _indi.IsDecreasing(2);
-          _result &= _indi.IsDecByPct(-_level, 0, 0, 2);
-          _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
-          // @todo
-          // When histogram is below zero level, but with the rays pointing upwards (upward trend),
-          // then we can assume that, in spite of still bearish sentiment in the market, their strength begins to
-          // weaken.
-          // if (METHOD(_method, 2)) _result &= _indi[PPREV][0] < 0;
-          break;
-      }
+    bool _result = _indi.GetFlag(INDI_ENTRY_FLAG_IS_VALID);
+    if (!_result) {
+      // Returns false when indicator data is not valid.
+      return false;
+    }
+    IndicatorSignal _signals = _indi.GetSignals(4, _shift);
+    switch (_cmd) {
+      case ORDER_TYPE_BUY:
+        // FI recommends to buy (i.e. FI<0).
+        _result = _indi[CURR][0] < 0 && _indi.IsIncreasing(2);
+        _result &= _indi.IsIncByPct(_level, 0, 0, 2);
+        _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
+        // Signal: Changing from negative values to positive.
+        // @todo
+        // When histogram passes through zero level from bottom up,
+        // bears have lost control over the market and bulls increase pressure.
+        // if (METHOD(_method, 2)) _result &= _indi[PPREV][0] > 0;
+        break;
+      case ORDER_TYPE_SELL:
+        // FI recommends to sell (i.e. FI>0).
+        _result = _indi[CURR][0] > 0 && _indi.IsDecreasing(2);
+        _result &= _indi.IsDecByPct(-_level, 0, 0, 2);
+        _result &= _method > 0 ? _signals.CheckSignals(_method) : _signals.CheckSignalsAll(-_method);
+        // @todo
+        // When histogram is below zero level, but with the rays pointing upwards (upward trend),
+        // then we can assume that, in spite of still bearish sentiment in the market, their strength begins to
+        // weaken.
+        // if (METHOD(_method, 2)) _result &= _indi[PPREV][0] < 0;
+        break;
     }
     return _result;
   }
