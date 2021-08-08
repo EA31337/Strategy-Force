@@ -11,6 +11,7 @@ INPUT float Force_SignalOpenLevel = 0.0f;     // Signal open level
 INPUT int Force_SignalOpenFilterMethod = 32;  // Signal open filter method
 INPUT int Force_SignalOpenBoostMethod = 0;    // Signal open boost method
 INPUT int Force_SignalCloseMethod = 2;        // Signal close method (-127-127)
+INPUT int Force_SignalCloseFilter = 0;        // Signal close filter (-127-127)
 INPUT float Force_SignalCloseLevel = 0.0f;    // Signal close level
 INPUT int Force_PriceStopMethod = 1;          // Price stop method
 INPUT float Force_PriceStopLevel = 0;         // Price stop level
@@ -37,9 +38,9 @@ struct Indi_Force_Params_Defaults : ForceParams {
 struct Stg_Force_Params_Defaults : StgParams {
   Stg_Force_Params_Defaults()
       : StgParams(::Force_SignalOpenMethod, ::Force_SignalOpenFilterMethod, ::Force_SignalOpenLevel,
-                  ::Force_SignalOpenBoostMethod, ::Force_SignalCloseMethod, ::Force_SignalCloseLevel,
-                  ::Force_PriceStopMethod, ::Force_PriceStopLevel, ::Force_TickFilterMethod, ::Force_MaxSpread,
-                  ::Force_Shift, ::Force_OrderCloseTime) {}
+                  ::Force_SignalOpenBoostMethod, ::Force_SignalCloseMethod, ::Force_SignalCloseFilter,
+                  ::Force_SignalCloseLevel, ::Force_PriceStopMethod, ::Force_PriceStopLevel, ::Force_TickFilterMethod,
+                  ::Force_MaxSpread, ::Force_Shift, ::Force_OrderCloseTime) {}
 } stg_force_defaults;
 
 // Struct to define strategy parameters to override.
