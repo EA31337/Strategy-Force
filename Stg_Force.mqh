@@ -4,24 +4,23 @@
  */
 
 // User input params.
-INPUT string __Force_Parameters__ = "-- Force strategy params --";  // >>> FORCE <<<
-INPUT float Force_LotSize = 0;                                      // Lot size
-INPUT int Force_SignalOpenMethod = 2;                               // Signal open method (-127-127)
-INPUT float Force_SignalOpenLevel = 0.0f;                           // Signal open level
-INPUT int Force_SignalOpenFilterMethod = 32;                        // Signal open filter method
-INPUT int Force_SignalOpenBoostMethod = 0;                          // Signal open boost method
-INPUT int Force_SignalCloseMethod = 2;                              // Signal close method (-127-127)
-INPUT float Force_SignalCloseLevel = 0.0f;                          // Signal close level
-INPUT int Force_PriceStopMethod = 1;                                // Price stop method
-INPUT float Force_PriceStopLevel = 0;                               // Price stop level
-INPUT int Force_TickFilterMethod = 1;                               // Tick filter method
-INPUT float Force_MaxSpread = 4.0;                                  // Max spread to trade (pips)
-INPUT short Force_Shift = 1;                                        // Shift (relative to the current bar, 0 - default)
-INPUT int Force_OrderCloseTime = -20;                               // Order close time in mins (>0) or bars (<0)
-INPUT string __Force_Indi_Force_Parameters__ =
-    "-- Force strategy: Force indicator params --";                   // >>> Force strategy: Force indicator <<<
-INPUT int Force_Indi_Force_Period = 38;                               // Period
-INPUT ENUM_MA_METHOD Force_Indi_Force_MA_Method = (ENUM_MA_METHOD)0;  // MA Method
+INPUT_GROUP("Force strategy: strategy params");
+INPUT float Force_LotSize = 0;                // Lot size
+INPUT int Force_SignalOpenMethod = 2;         // Signal open method (-127-127)
+INPUT float Force_SignalOpenLevel = 0.0f;     // Signal open level
+INPUT int Force_SignalOpenFilterMethod = 32;  // Signal open filter method
+INPUT int Force_SignalOpenBoostMethod = 0;    // Signal open boost method
+INPUT int Force_SignalCloseMethod = 2;        // Signal close method (-127-127)
+INPUT float Force_SignalCloseLevel = 0.0f;    // Signal close level
+INPUT int Force_PriceStopMethod = 1;          // Price stop method
+INPUT float Force_PriceStopLevel = 0;         // Price stop level
+INPUT int Force_TickFilterMethod = 1;         // Tick filter method
+INPUT float Force_MaxSpread = 4.0;            // Max spread to trade (pips)
+INPUT short Force_Shift = 1;                  // Shift (relative to the current bar, 0 - default)
+INPUT int Force_OrderCloseTime = -20;         // Order close time in mins (>0) or bars (<0)
+INPUT_GROUP("Force strategy: Force indicator params");
+INPUT int Force_Indi_Force_Period = 38;                                           // Period
+INPUT ENUM_MA_METHOD Force_Indi_Force_MA_Method = (ENUM_MA_METHOD)0;              // MA Method
 INPUT ENUM_APPLIED_PRICE Force_Indi_Force_Applied_Price = (ENUM_APPLIED_PRICE)2;  // Applied Price
 INPUT int Force_Indi_Force_Shift = 0;                                             // Shift
 
