@@ -19,7 +19,7 @@ struct Stg_Force_Params_{{ Timeframe }} : StgParams {
   Stg_Force_Params_{{ Timeframe }}() : StgParams(stg_force_defaults) {
     lot_size = {{ Force_LotSize | default(0) }};
     signal_open_method = {{ Force_SignalOpenMethod | default(0) }};
-    signal_open_filter = {{ Force_SignalOpenFilterMethod | default(1) }};
+    signal_open_filter_method = {{ Force_SignalOpenFilterMethod | default(1) }};
     signal_open_level = (float){{ Force_SignalOpenLevel | default(0) }};
     signal_open_boost = {{ Force_SignalOpenBoostMethod | default(0) }};
     signal_close_method = {{ Force_SignalCloseMethod | default(0) }};
