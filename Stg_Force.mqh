@@ -44,6 +44,7 @@ struct Stg_Force_Params_Defaults : StgParams {
                   ::Force_SignalOpenBoostMethod, ::Force_SignalCloseMethod, ::Force_SignalCloseFilter,
                   ::Force_SignalCloseLevel, ::Force_PriceStopMethod, ::Force_PriceStopLevel, ::Force_TickFilterMethod,
                   ::Force_MaxSpread, ::Force_Shift) {
+    Set(STRAT_PARAM_LS, Force_LotSize);
     Set(STRAT_PARAM_OCL, Force_OrderCloseLoss);
     Set(STRAT_PARAM_OCP, Force_OrderCloseProfit);
     Set(STRAT_PARAM_OCT, Force_OrderCloseTime);
