@@ -19,8 +19,8 @@ INPUT float Force_PriceStopLevel = 2;         // Price stop level
 INPUT int Force_TickFilterMethod = 32;        // Tick filter method
 INPUT float Force_MaxSpread = 4.0;            // Max spread to trade (pips)
 INPUT short Force_Shift = 1;                  // Shift (relative to the current bar, 0 - default)
-INPUT float Force_OrderCloseLoss = 0;         // Order close loss
-INPUT float Force_OrderCloseProfit = 0;       // Order close profit
+INPUT float Force_OrderCloseLoss = 80;        // Order close loss
+INPUT float Force_OrderCloseProfit = 80;      // Order close profit
 INPUT int Force_OrderCloseTime = -30;         // Order close time in mins (>0) or bars (<0)
 INPUT_GROUP("Force strategy: Force indicator params");
 INPUT int Force_Indi_Force_Period = 35;                                           // Period
