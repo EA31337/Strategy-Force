@@ -81,7 +81,6 @@ class Stg_Force : public Strategy {
                              stg_force_h4, stg_force_h8);
 #endif
     // Initialize indicator.
-    ForceParams force_params(_indi_params);
     _stg_params.SetIndicator(new Indi_Force(_indi_params));
     // Initialize Strategy instance.
     ChartParams _cparams(_tf, _Symbol);
