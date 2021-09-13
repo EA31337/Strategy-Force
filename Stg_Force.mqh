@@ -35,7 +35,7 @@ struct Indi_Force_Params_Defaults : ForceParams {
   Indi_Force_Params_Defaults()
       : ForceParams(::Force_Indi_Force_Period, ::Force_Indi_Force_MA_Method, ::Force_Indi_Force_Applied_Price,
                     ::Force_Indi_Force_Shift) {}
-} indi_force_defaults;
+};
 
 // Defines struct with default user strategy values.
 struct Stg_Force_Params_Defaults : StgParams {
@@ -50,7 +50,7 @@ struct Stg_Force_Params_Defaults : StgParams {
     Set(STRAT_PARAM_OCT, Force_OrderCloseTime);
     Set(STRAT_PARAM_SOFT, Force_SignalOpenFilterTime);
   }
-} stg_force_defaults;
+};
 
 #ifdef __config__
 // Loads pair specific param values.
@@ -70,7 +70,9 @@ class Stg_Force : public Strategy {
 
   static Stg_Force *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
+    Indi_Force_Params_Defaults indi_force_defaults;
     ForceParams _indi_params(indi_force_defaults, _tf);
+    Stg_Force_Params_Defaults stg_force_defaults;
     StgParams _stg_params(stg_force_defaults);
 #ifdef __config__
     SetParamsByTf<ForceParams>(_indi_params, _tf, indi_force_m1, indi_force_m5, indi_force_m15, indi_force_m30,
