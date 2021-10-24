@@ -31,10 +31,10 @@ INPUT int Force_Indi_Force_Shift = 0;                                           
 // Structs.
 
 // Defines struct with default user indicator values.
-struct Indi_Force_Params_Defaults : ForceParams {
+struct Indi_Force_Params_Defaults : IndiForceParams {
   Indi_Force_Params_Defaults()
-      : ForceParams(::Force_Indi_Force_Period, ::Force_Indi_Force_MA_Method, ::Force_Indi_Force_Applied_Price,
-                    ::Force_Indi_Force_Shift) {}
+      : IndiForceParams(::Force_Indi_Force_Period, ::Force_Indi_Force_MA_Method, ::Force_Indi_Force_Applied_Price,
+                        ::Force_Indi_Force_Shift) {}
 };
 
 // Defines struct with default user strategy values.
@@ -71,12 +71,12 @@ class Stg_Force : public Strategy {
   static Stg_Force *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
     Indi_Force_Params_Defaults indi_force_defaults;
-    ForceParams _indi_params(indi_force_defaults, _tf);
+    IndiForceParams _indi_params(indi_force_defaults, _tf);
     Stg_Force_Params_Defaults stg_force_defaults;
     StgParams _stg_params(stg_force_defaults);
 #ifdef __config__
-    SetParamsByTf<ForceParams>(_indi_params, _tf, indi_force_m1, indi_force_m5, indi_force_m15, indi_force_m30,
-                               indi_force_h1, indi_force_h4, indi_force_h8);
+    SetParamsByTf<IndiForceParams>(_indi_params, _tf, indi_force_m1, indi_force_m5, indi_force_m15, indi_force_m30,
+                                   indi_force_h1, indi_force_h4, indi_force_h8);
     SetParamsByTf<StgParams>(_stg_params, _tf, stg_force_m1, stg_force_m5, stg_force_m15, stg_force_m30, stg_force_h1,
                              stg_force_h4, stg_force_h8);
 #endif

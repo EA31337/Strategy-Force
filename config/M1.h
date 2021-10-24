@@ -4,8 +4,8 @@
  */
 
 // Defines indicator's parameter values for the given pair symbol and timeframe.
-struct Indi_Force_Params_M1 : ForceParams {
-  Indi_Force_Params_M1() : ForceParams(indi_force_defaults, PERIOD_M1) {
+struct Indi_Force_Params_M1 : IndiForceParams {
+  Indi_Force_Params_M1() : IndiForceParams(indi_force_defaults, PERIOD_M1) {
     applied_price = (ENUM_APPLIED_PRICE)2;
     ma_method = (ENUM_MA_METHOD)3;
     period = 4;
