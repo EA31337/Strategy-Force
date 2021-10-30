@@ -70,13 +70,9 @@ class Stg_Force : public Strategy {
 
   static Stg_Force *Init(ENUM_TIMEFRAMES _tf = NULL) {
     // Initialize strategy initial values.
-    Indi_Force_Params_Defaults indi_force_defaults;
-    IndiForceParams _indi_params(indi_force_defaults, _tf);
     Stg_Force_Params_Defaults stg_force_defaults;
     StgParams _stg_params(stg_force_defaults);
 #ifdef __config__
-    SetParamsByTf<IndiForceParams>(_indi_params, _tf, indi_force_m1, indi_force_m5, indi_force_m15, indi_force_m30,
-                                   indi_force_h1, indi_force_h4, indi_force_h8);
     SetParamsByTf<StgParams>(_stg_params, _tf, stg_force_m1, stg_force_m5, stg_force_m15, stg_force_m30, stg_force_h1,
                              stg_force_h4, stg_force_h8);
 #endif
@@ -85,8 +81,16 @@ class Stg_Force : public Strategy {
     ChartParams _cparams(_tf, _Symbol);
     TradeParams _tparams;
     Strategy *_strat = new Stg_Force(_stg_params, _tparams, _cparams, "Force");
-    _strat.SetIndicator(new Indi_Force(_indi_params));
     return _strat;
+  }
+
+  /**
+   * Event on strategy's init.
+   */
+  void OnInit() {
+    Indi_Force_Params_Defaults indi_force_defaults;
+    IndiForceParams _indi_params(indi_force_defaults, Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
+    SetIndicator(new Indi_Force(_indi_params));
   }
 
   /**

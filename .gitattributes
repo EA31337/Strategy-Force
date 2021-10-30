@@ -20,7 +20,6 @@
 # Define text file attributes.
 *.ex?     binary
 *.h       utf8 diff=c
-*.j2      utf8 diff=c
 *.json    utf8 diff=c
 *.mq?     utf8 diff=c
 *.mqproj  utf16 diff=c
