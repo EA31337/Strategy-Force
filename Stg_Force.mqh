@@ -30,13 +30,6 @@ INPUT int Force_Indi_Force_Shift = 0;                                           
 
 // Structs.
 
-// Defines struct with default user indicator values.
-struct Indi_Force_Params_Defaults : IndiForceParams {
-  Indi_Force_Params_Defaults()
-      : IndiForceParams(::Force_Indi_Force_Period, ::Force_Indi_Force_MA_Method, ::Force_Indi_Force_Applied_Price,
-                        ::Force_Indi_Force_Shift) {}
-};
-
 // Defines struct with default user strategy values.
 struct Stg_Force_Params_Defaults : StgParams {
   Stg_Force_Params_Defaults()
@@ -88,8 +81,9 @@ class Stg_Force : public Strategy {
    * Event on strategy's init.
    */
   void OnInit() {
-    Indi_Force_Params_Defaults indi_force_defaults;
-    IndiForceParams _indi_params(indi_force_defaults, Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
+    IndiForceParams _indi_params(::Force_Indi_Force_Period, ::Force_Indi_Force_MA_Method,
+                                 ::Force_Indi_Force_Applied_Price, ::Force_Indi_Force_Shift);
+    _indi_params.SetTf(Get<ENUM_TIMEFRAMES>(STRAT_PARAM_TF));
     SetIndicator(new Indi_Force(_indi_params));
   }
 
